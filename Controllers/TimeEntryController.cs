@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RareServer.Models;
 using RareServer.Service;
+using RareServer.Service.ChartServices;
 using System.Diagnostics;
 
 namespace RareServer.Controllers
@@ -11,9 +12,12 @@ namespace RareServer.Controllers
     {
         private readonly ITimeEntryService _timeEntryService;
 
-        public TimeEntryController(ITimeEntryService timeEntryService)
+        private readonly IChartService _chartService;
+
+        public TimeEntryController(ITimeEntryService timeEntryService, IChartService chartService)
         {
             _timeEntryService = timeEntryService;
+            _chartService = chartService;
         }
 
         // GET: TimeEntryController
@@ -22,6 +26,10 @@ namespace RareServer.Controllers
             try
             {
                 var timeEntries = await _timeEntryService.GetTimeEntryAsync();
+
+                var chartData = _chartService.GeneratePieChart(timeEntries);
+
+                ViewBag.ChartData = chartData;
 
                 return View(timeEntries);
             }

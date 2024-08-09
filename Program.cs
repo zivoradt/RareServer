@@ -15,6 +15,9 @@ namespace RareServer
     {
         public static void Main(string[] args)
         {
+            DotNetEnv.Env.Load();
+            DotNetEnv.Env.TraversePath().Load();
+
             var builder = WebApplication.CreateBuilder(args);
             var configuration = builder.Configuration;
 
