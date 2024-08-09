@@ -1,0 +1,50 @@
+﻿@using RareServer.Models
+@model IEnumerable<EmployeeTimeSummary>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Employee Time Tracker</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+
+        tr.less-than-100 {
+            background-color: lightcoral;
+        }
+    </style>
+</head>
+<body>
+    <h1>Employee Time Tracker</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Total Time Worked (Hours)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr class="@(item.TotalTimeWorked < 100 ? "less-than-100" : "")">
+                    <td>@item.EmployeeName</td>
+                    <td>@item.TotalTimeWorked</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <br />
+    <br />
+
+    
+
+</body>
+</html>
