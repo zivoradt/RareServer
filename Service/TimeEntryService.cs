@@ -46,7 +46,7 @@ namespace RareServer.Service
                 .Select(g => new EmployeeTimeSummary
                 {
                     EmployeeName = g.Key,
-                    TotalTimeWorked = g.Sum(te => te.TotalTimeWorked)
+                    TotalTimeWorked = Math.Round((decimal)g.Sum(te => (te.EndTimeUtc - te.StarTimeUtc).TotalHours), 0)
                 })
                 .OrderByDescending(e => e.TotalTimeWorked)
                 .ToList();
